@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+   <title>Title</title>
+   <style>
+      * {
+         padding: 0;
+         margin: 0;
+      }
+
+      html, body {
+         height: 100%;
+         overflow: hidden;
+      }
+
+      canvas {
+         position: absolute;
+         left: 0;
+         top: 0;
+      }
+
+      #backImg {
+         height: 100%;
+         background: url("img/2.jpg");
+         background-size: 100% 100%;
+         transition:1s;
+      }
+   </style>
+</head>
+<body>
+<canvas id="strokeCard"></canvas>
+<div id="backImg"></div>
+<script type="text/javascript">
+  var canvas = document.getElementById('strokeCard')
+  canvas.width = document.documentElement.clientWidth
+  canvas.height = document.documentElement.clientHeight
+  var ctx = canvas.getContext('2d')
+  ctx.save()
+  ctx.fillStyle = 'gainsboro'
+  ctx.beginPath()
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  ctx.restore()
+  canvas.addEventListener('touchstart', function (ev) {
+    var x = ev.changedTouches[0].clientX - canvas.offsetLeft
+    var y = ev.changedTouches[0].clientY - canvas.offsetTop
+    ctx.save()
+    ctx.lineWidth = 40
+    ctx.lineJoin = 'round'
+    ctx.lineCap = 'round'
+    ctx.globalCompositeOperation = 'destination-out'
+    ctx.strokeStyle = 'red'
+    ctx.beginPath()
+    ctx.moveTo(x,y)
+    ctx.lineTo(x+1,y+1)
+    ctx.stroke()
+    ctx.restore()
+  })
+   canvas.addEventListener('touchmove',function (ev) {
+     var x = ev.changedTouches[0].clientX - canvas.offsetLeft
+     var y = ev.changedTouches[0].clientY - canvas.offsetTop
+     ctx.save()
+     ctx.lineWidth = 40
+     ctx.lineJoin = 'round'
+     ctx.lineCap = 'round'
+     ctx.globalCompositeOperation = 'destination-out'
+     ctx.strokeStyle = 'red'
+     ctx.lineTo(x,y)
+     ctx.stroke()
+     ctx.restore()
+   })
+
+   var flag=0
+   canvas.addEventListener('touchend',function () {
+     var imgData=ctx.getImageData(0,0,canvas.width,canvas.height)
+     for(var i=0;i<imgData.data.length;i++){
+       if(imgData.data[4*i+3]===0){
+         flag++
+       }
+     }
+     if(flag>=canvas.width*canvas.height/2){
+       canvas.style.opacity=0
+     }
+     console.log(flag)
+   })
+   canvas.addEventListener('transitionend',function () {
+     canvas.remove()
+   })
+</script>
+
+</body>
+</html>

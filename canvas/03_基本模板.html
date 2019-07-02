@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <style>
+      *{
+         padding: 0;
+         margin: 0;
+      }
+      #test{
+         position: absolute;
+         left: 0;
+         bottom: 0;
+         right: 0;
+         top:0;
+         background: gray;
+      }
+   </style>
+</head>
+<body>
+   <canvas id="test" width="400px" height="400px">
+      <span>您的浏览器不支持canvas</span>
+   </canvas>
+
+<script type="text/javascript">
+  var canvas=document.getElementById('test')
+   if(canvas.getContext){
+     var ctx=canvas.getContext('2d')
+     ctx.save()
+     // 在这里写样式
+     ctx.fillStyle='pink'
+     ctx.beginPath()
+     // 在这里写路径
+     // ctx.moveTo(10,10)
+     // ctx.lineTo(10,100)
+     // ctx.lineTo(50,100)
+     ctx.closePath()
+     // ctx.fill()
+     ctx.restore()
+
+
+     ctx.save()
+     // 在这里写样式
+     ctx.beginPath()
+     // 在这里写路径
+     // ctx.fillRect(200,200,50,50)
+     ctx.restore()
+   }
+</script>
+</body>
+</html>

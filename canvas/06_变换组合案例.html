@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <style>
+      #test{
+         position: absolute;
+         left:50%;
+         top:50%;
+         margin-left: -150px;
+         margin-top: -150px;
+         background: gainsboro;
+      }
+   </style>
+</head>
+<body>
+   <canvas id="test" width="300px" height="300px">
+      <span>您的浏览器不支持canvas</span>
+   </canvas>
+
+<script type="text/javascript">
+  window.onload=function () {
+
+    var canvas=document.getElementById('test')
+
+    if(canvas.getContext){
+
+      var ctx=canvas.getContext('2d')
+
+      var radian=0
+      var scaleRatio=0
+      var scaleChange=1
+
+      //初始化
+      ctx.fillStyle='darkorange'
+      ctx.translate(150,150)
+      ctx.save()
+      ctx.beginPath()
+      ctx.fillRect(-50,-50,100,100)
+      ctx.restore()
+
+      // 变换
+      setInterval(function () {
+        ctx.save()
+        ctx.clearRect(-150,-150,canvas.width,canvas.height)
+        radian++
+         if(scaleRatio===100){
+           scaleChange=-1
+         }
+         if(scaleRatio===0){
+           scaleChange=1
+         }
+         scaleRatio+=scaleChange
+        ctx.beginPath()
+        ctx.rotate(radian*Math.PI/180)
+        ctx.scale(scaleRatio/50,scaleRatio/50)
+        ctx.fillRect(-50,-50,100,100)
+        ctx.restore()
+
+      },1000/60)  //setInterval
+    }  //canvas.getContext
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }//window.onload
+</script>
+</body>
+</html>

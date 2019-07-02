@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <style>
+      *{
+         padding: 0;
+         margin: 0;
+      }
+      canvas{
+         position: absolute;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         top: 0;
+         margin: auto;
+         background: pink;
+      }
+
+   </style>
+</head>
+<body>
+   <video width="0" height="0" autoplay src="https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_Hanzo%26Genji_Dragons.mp4"></video>
+   <canvas width="200px" height="200px"></canvas>
+</body>
+<script type="text/javascript">
+  var canvas = document.getElementsByTagName('canvas')[0]
+  var video = document.getElementsByTagName('video')[0]
+   if(canvas.getContext){
+     var ctx = canvas.getContext('2d')
+     video.addEventListener('loadeddata',function () {
+       setInterval(function () {
+         ctx.drawImage(video,0,0,200,200)
+
+       },100)
+
+     })
+
+   }
+</script>
+</html>

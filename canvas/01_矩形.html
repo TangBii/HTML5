@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <style>
+      *{
+         padding: 0;
+         bottom: 0;
+      }
+
+      #test{
+         position: absolute;
+         top:0;
+         bottom: 0;
+         left: 0;
+         right: 0;
+         margin: auto;
+         background:pink;
+      }
+   </style>
+</head>
+<body>
+   <canvas id="test" width="300px" height="300px">
+      <span>不支持</span>
+   </canvas>
+
+<script type="text/javascript">
+   // 获得画布元素
+  var canvas=document.getElementById('test')
+   // 兼容性
+   if(canvas.getContext){
+     // 获得画笔
+      ctx=canvas.getContext('2d')
+
+     // 设置画笔填充颜色,并填充矩形
+     ctx.fillStyle='orange'
+     ctx.fillRect(10,10,50,50)
+
+     // 设置画笔颜色和宽度，连接处样式，并画一个矩形边框
+     ctx.lineJoin='round'
+     ctx.strokeStyle='blue'
+     ctx.lineWidth=10
+     ctx.strokeRect(65,65,50,50)
+
+     // 清除矩形
+      ctx.clearRect(65,65,50,50)
+
+
+   }
+
+</script>
+</body>
+</html>

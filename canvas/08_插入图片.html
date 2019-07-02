@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <style>
+      #test {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate3d(-50%, -50%, 0);
+         background: gainsboro;
+      }
+   </style>
+</head>
+<body>
+<canvas id="test" width="800px" height="400px"></canvas>
+
+<script type="text/javascript">
+  window.onload = function () {
+    var canvas = document.getElementById('test')
+    if (canvas.getContext) {
+      var ctx = canvas.getContext('2d')
+
+      // 新建图片对象
+      var img = new Image()
+      img.src = 'img/1.jpg'
+      img.onload = function () {
+        draw()
+      }
+
+      function draw() {
+         ctx.drawImage(img,0,0,800,400)
+      }
+
+
+    }  // 兼容性
+
+
+  } // window.onload
+</script>
+</body>
+</html>

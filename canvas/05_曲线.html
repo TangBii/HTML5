@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <style>
+      #test{
+         position: absolute;
+         left: 50%;
+         top: 50%;
+         margin-left: -250px;
+         margin-top:-250px ;
+         background: gainsboro;
+      }
+   </style>
+</head>
+<body>
+   <canvas id="test" width="500px" height="500px"></canvas>
+<script type="text/javascript">
+  window.onload=function () {
+    var canvas=document.getElementById('test')
+    if(canvas.getContext){
+      var ctx=canvas.getContext('2d')
+      ctx.beginPath()
+      ctx.moveTo(200,200)
+      ctx.lineTo(12,123)
+      ctx.lineTo(42,32)
+      ctx.stroke()
+      ctx.beginPath()
+      ctx.moveTo(200,200)
+      ctx.quadraticCurveTo(12,123,42,32,49)
+      // ctx.closePath()
+      ctx.stroke()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }//canvas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }//window.onload
+</script>
+</body>
+</html>

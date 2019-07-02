@@ -1,0 +1,306 @@
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-weight: normal;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* custom */
+a {
+  color: #7e8c8d;
+  text-decoration: none;
+  -webkit-backface-visibility: hidden;
+}
+li {
+  list-style: none;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  background-color: rgba(125, 125, 125, 0.7);
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  width: 5px;
+  background-color: rgba(125, 125, 125, 0.7);
+  -webkit-border-radius: 6px;
+}
+html,
+body {
+  width: 100%;
+}
+body {
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html,
+body {
+  height: 100%;
+  width: auto;
+  overflow: auto;
+  font-size: 0;
+}
+#outer {
+  height: 100%;
+  background: gainsboro;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  min-width: 400px;
+}
+#outer #wrap {
+  position: relative;
+  height: 25px;
+  background: #2a8db4;
+}
+#outer #wrap .btns {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 55px;
+  height: 25px;
+}
+#outer #wrap .btns > div {
+  width: 9px;
+  height: 11px;
+  float: left;
+  margin-top: 7px;
+  background: url("../img/icon.png");
+}
+#outer #wrap .btns > div.start {
+  background-position: 0 -23px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+#outer #wrap .btns > div.restart {
+  background-position: 0 0;
+}
+#outer #wrap .btns > div.active {
+  background-position: 0 -11px;
+}
+#outer #wrap .progress {
+  position: relative;
+  margin-left: 55px;
+  margin-right: 230px;
+  background: #1b6d85;
+}
+#outer #wrap .progress .progressOuter {
+  position: absolute;
+  left: 0;
+  top: 11px;
+  height: 3px;
+  width: 100%;
+  background: #737373;
+}
+#outer #wrap .progress .progressOuter .progressControl {
+  position: relative;
+  width: 9px;
+  height: 7px;
+  background-color: white;
+  border-radius: 2px;
+  margin-top: -2px;
+}
+#outer #wrap .progress .progressInner {
+  position: absolute;
+  left: 0;
+  top: 11px;
+  height: 3px;
+  background: deeppink;
+  width: 0;
+}
+#outer #wrap .others {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 230px;
+  height: 25px;
+}
+#outer #wrap .others .timer {
+  float: left;
+  width: 120px;
+  font-size: 12px;
+  color: white;
+  line-height: 25px;
+}
+#outer #wrap .others .volume {
+  width: 80px;
+  height: 25px;
+  float: left;
+}
+#outer #wrap .others .volume .toggle {
+  position: relative;
+  float: left;
+  width: 20px;
+  height: 11px;
+  background: url("../img/icon.png") no-repeat;
+  background-position: 0 -33px;
+  margin-top: 6px;
+}
+#outer #wrap .others .volume .toggle.active {
+  background-position: 0 -45px;
+}
+#outer #wrap .others .volume .volumeProgress {
+  float: left;
+  width: 60px;
+  height: 25px;
+}
+#outer #wrap .others .volume .volumeProgress .progressOuter2 {
+  position: absolute;
+  left: 140px;
+  top: 11px;
+  height: 3px;
+  width: 60px;
+  background: #737373;
+}
+#outer #wrap .others .volume .volumeProgress .progressOuter2 .progressControl2 {
+  position: relative;
+  width: 9px;
+  height: 7px;
+  background-color: white;
+  border-radius: 2px;
+  margin-top: -2px;
+}
+#outer #wrap .others .volume .volumeProgress .progressInner2 {
+  position: relative;
+  left: 0;
+  top: 11px;
+  height: 3px;
+  background: deeppink;
+  width: 0;
+}
+#outer #wrap .others .screenBox {
+  float: left;
+  width: 30px;
+  height: 25px;
+}
+#outer #wrap .others .screenBox .screen {
+  width: 11px;
+  height: 11px;
+  background: url("../img/icon.png");
+  background-position: 0 -59px;
+  margin: 7px auto;
+}
+#outer #wrap .others .screenBox .screen.active {
+  background-position: 0 -69px;
+}

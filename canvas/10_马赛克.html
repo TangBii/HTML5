@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <style>
+      #test {
+         position: absolute;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         top: 0;
+         margin: auto;
+         background: gainsboro;
+      }
+
+   </style>
+</head>
+<body>
+<canvas id="test" width="800px" height="400px"></canvas>
+
+
+<script type="text/javascript">
+  window.onload = function () {
+    var canvas = document.getElementById('test')
+    if (canvas.getContext) {
+      var ctx = canvas.getContext('2d')
+      // 加载图片
+      var img = new Image()
+      img.src = 'img/2.jpg'
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0, 800, 400)
+        // 马赛克
+        var size = 3
+        var imgData = ctx.getImageData(0, 0, 800, 400)
+        
+        for (var i = 0; i < imgData.width/size;i++) {
+          for (var j = 0; j < imgData.height/size; j++) {
+
+            // 获取颜色
+            colorData = getImgData(imgData, Math.floor(Math.random() * size + i * size), Math.floor(Math.random() * size + j * size))
+            for (var k = i * size; k < (i + 1) * size; k++) {
+              for (var w = j * size; w < (j + 1) * size; w++) {
+
+                // 设置颜色
+                setImgData(imgData, k, w, colorData)
+                
+              }  // w
+            }  // k
+          }  // j
+        }  // i
+   console.log(imgData)
+        // 填充颜色
+        ctx.putImageData(imgData, 0, 0)
+      }  //加载图片
+
+
+      // 获取单个像素点值
+      function getImgData(imgData, x, y) {
+        var imgDataWidth = imgData.width
+        var colorData = []
+        colorData[0] = imgData.data[(imgDataWidth * y + x) * 4]
+        colorData[1] = imgData.data[(imgDataWidth * y + x) * 4 + 1]
+        colorData[2] = imgData.data[(imgDataWidth * y + x) * 4 + 2]
+        colorData[3] = imgData.data[(imgDataWidth * y + x) * 4 + 3]
+        return colorData
+      }
+
+      // 设置单个像素点值
+      function setImgData(imgData, x, y, colorData) {
+        var imgDataWidth = imgData.width
+        imgData.data[(imgDataWidth * y + x) * 4] = colorData[0]
+        imgData.data[(imgDataWidth * y + x) * 4 + 1] = colorData[1]
+        imgData.data[(imgDataWidth * y + x) * 4 + 2] = colorData[2]
+        imgData.data[(imgDataWidth * y + x) * 4 + 3] = colorData[3]
+      }
+    }  // 兼容性
+  }  // window.onload
+
+
+</script>
+</body>
+</html>

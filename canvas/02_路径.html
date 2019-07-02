@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+   <style>
+      #test{
+         position: absolute;
+         bottom: 0;
+         top: 0;
+         left: 0;
+         right: 0;
+         margin: auto;
+         background: gray;
+      }
+   </style>
+</head>
+<body>
+   <canvas id="test" height="500px" width="500px"></canvas>
+
+<script type="text/javascript">
+  var canvas=document.getElementById('test')
+   if(canvas.getContext){
+     var ctx=canvas.getContext('2d')
+
+     // 绘制路径
+     ctx.moveTo(50,50)
+     ctx.lineTo(30,100)
+     ctx.lineTo(80,100)
+     ctx.closePath()
+     ctx.strokeStyle='pink'
+     ctx.lineWidth=3
+     ctx.stroke()
+     // ctx.fillStyle='pink'
+     // ctx.fill()
+
+     //重新开始一段路径
+     ctx.beginPath()
+     ctx.moveTo(100,100)
+     ctx.lineTo(150,100)
+     ctx.lineTo(150,200)
+     ctx.closePath()
+     ctx.fillStyle='pink'
+     ctx.fill()
+
+     // 矩形的第二种画法
+     ctx.beginPath()
+     ctx.rect(400,50,50,100)
+     ctx.lineJoin='bevel'
+     ctx.lineWidth=20
+     ctx.strokeStyle='orange'
+     ctx.stroke()
+
+      // 画一条线
+     ctx.beginPath()
+     ctx.moveTo(50,350)
+     ctx.lineTo(100,350)
+     ctx.strokeStyle='blue'
+     ctx.lineWidth=20
+     ctx.lineCap='round'
+     ctx.stroke()
+
+   }
+</script>
+</body>
+</html>

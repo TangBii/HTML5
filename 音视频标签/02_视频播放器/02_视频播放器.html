@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>视频播放器</title>
+   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+   <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="outer">
+   <video src="https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_Hanzo%26Genji_Dragons.mp4"
+          poster="img/1.jpg"></video>
+
+   <div id="wrap">
+      <!--   控制区-->
+      <div class="btns">
+         <div class="start"></div>
+         <div class="restart"></div>
+      </div>
+      <!--   滚动条-->
+      <div class="progress">
+         <div class="progressOuter">
+            <div class="progressControl"></div>
+         </div>
+         <div class="progressInner"></div>
+      </div>
+      <!--音量/全屏-->
+      <div class="others">
+         <div class="timer"><span class="timer1">00:00:00</span>/<span class="timer2">00:00:00</span></div>
+         <div class="volume">
+            <div class="toggle"></div>
+            <div class="volumeProgress">
+               <div class="progressOuter2">
+                  <div class="progressControl2"></div>
+               </div>
+               <div class="progressInner2"></div>
+            </div>
+         </div>
+         <div class="screenBox">
+            <div class="screen"></div>
+         </div>
+      </div>
+
+
+   </div>
+</div>
+
+
+<script type="text/javascript" src="../js/jquery-3.1.0.slim.js"></script>
+<script type="text/javascript">
+
+  var video = document.getElementsByTagName('video')[0]
+  var videoControl = document.getElementById('wrap')
+  var progressControl = document.querySelector('.progressControl')
+  var progress = document.querySelector('.progress')
+  var progressOuter = $(progress).first()[0]
+  var progressInner = document.querySelector('.progressInner')
+  var progressControl2 = document.querySelector('.progressControl2')
+  var volumeProgress = document.querySelector('.volumeProgress')
+  var progressInner2 = document.querySelector('.progressInner2')
+  var start = document.querySelector('.start')
+  var restart = $('.restart')[0]
+  var btns = document.querySelector('.btns')
+  var toggle = document.querySelector('.toggle')
+  var timerAll = document.querySelector('.timer')
+  var timer1 = document.querySelector('.timer1')
+  var timer2 = document.querySelector('.timer2')
+  var screenToggle = document.querySelector('.screenBox')
+  var screen = document.getElementsByClassName('screen')[0]
+
+  // 设置视频窗口大小
+  video.width = document.documentElement.clientWidth
+  video.height = document.documentElement.clientHeight - videoControl.offsetHeight
+  window.onresize = function () {
+    video.width = document.documentElement.clientWidth
+    video.height = document.documentElement.clientHeight - videoControl.offsetHeight
+
+  }
+
+  // 拖拽
+  drag()
+
+  function drag() {
+
+    progressControl.onmousedown = function (event) {
+      var startLeft = this.offsetLeft
+      var eventStartLeft = event.clientX
+      document.onmousemove = function (event) {
+        var eventEndLeft = event.clientX
+        var endLeft = startLeft + eventEndLeft - eventStartLeft
+        if (endLeft < 0) {
+          endLeft = 0
+        } else if (endLeft > progress.clientWidth - progressControl.offsetWidth) {
+          endLeft = progress.clientWidth - progressControl.offsetWidth
+        }
+        video.currentTime = endLeft / progress.clientWidth * video.duration
+        progressInner.style.width = endLeft + 'px'
+        progressControl.style.left = endLeft + 'px'
+      }
+
+    }
+    document.onmouseup = function () {
+      document.onmousemove = document.onmousemove = null
+    }
+    progressControl2.onmousedown = function (event) {
+      var startLeft = this.offsetLeft
+      var eventStartLeft = event.clientX
+      document.onmousemove = function (event) {
+        var eventEndLeft = event.clientX
+        var endLeft = startLeft + eventEndLeft - eventStartLeft
+        if (endLeft < 0) {
+          endLeft = 0
+        } else if (endLeft > volumeProgress.clientWidth - progressControl2.offsetWidth) {
+          endLeft = volumeProgress.clientWidth - progressControl2.offsetWidth
+        }
+        video.volume = endLeft / (volumeProgress.clientWidth - progressControl2.offsetWidth)
+        if (video.volume === 0) {
+          video.muted = true
+          toggle.classList.add('active')
+        } else {
+          video.muted = false
+          toggle.classList.remove('active')
+        }
+
+        progressInner2.style.width = endLeft + 'px'
+        progressControl2.style.left = endLeft + 'px'
+      }
+    }
+  }
+
+  // 功能
+  player()
+
+  function player() {
+    // 播放/暂停
+    var timer
+    start.onclick = function () {
+      if (video.paused) {
+        video.play()
+        start.classList.add('active')
+        timer = setInterval(move, 100)
+
+      } else {
+        video.pause()
+        start.classList.remove('active')
+        clearInterval(timer)
+      }
+    } // start.click
+    restart.onclick = function () {
+      video.pause()
+      clearInterval(timer)
+      start.classList.remove('active')
+      progressControl.style.left = 0
+      video.currentTime = progressInner.style.width = 0
+    }
+
+    // 进度条
+    function move() {
+      progressControl.style.left = progressInner.style.width = (progressOuter.offsetWidth - progressControl.offsetWidth) * (video.currentTime / video.duration) + 'px'
+      changeTime()
+      if (video.currentTime === video.duration) {
+        start.classList.remove('active')
+        video.currentTime = progressInner.style.width = 0
+      }
+    }
+
+    // 进度跳转
+    progress.onclick = function (ev) {
+      ev = ev || event
+      endLeft = ev.clientX - btns.offsetWidth
+      progressControl.style.left = progressInner.style.width = endLeft + 'px'
+      video.currentTime = endLeft / progress.clientWidth * video.duration
+    }
+    // 改变时间
+    video.addEventListener('loadeddata', changeTime)
+
+    function changeTime() {
+      timer1.innerHTML = time(video.currentTime)
+      timer2.innerHTML = time(video.duration)
+    }
+
+    function time(num) {
+      var h = addZero(Math.floor(num / 3600))
+      var m = addZero(Math.floor(num % 3600 / 60))
+      var s = addZero(Math.round(num % 3600 % 60))
+      return (h + ":" + m + ":" + s)
+    }
+
+    function addZero(num) {
+      if (num < 10) {
+        num = '0' + num
+      }
+      return num
+    }
+
+    //音量按钮
+    var volumeScroll = volumeProgress.clientWidth - progressControl2.offsetWidth + 'px'
+    progressControl2.style.left = progressInner2.style.width = volumeScroll
+    video.volume = 1
+    toggle.onclick = function () {
+      if (video.muted) {
+        video.muted = false
+        progressControl2.style.left = progressInner2.style.width = volumeScroll
+        video.volume = parseInt(progressControl2.style.left) / (volumeProgress.clientWidth - progressControl2.offsetWidth)
+        toggle.classList.remove('active')
+      }
+      else {
+        video.muted = true
+        video.volume = 0
+        volumeScroll = progressControl2.style.left
+        progressControl2.style.left = progressInner2.style.width = 0
+        toggle.classList.add('active')
+      }
+    }
+    volumeProgress.onclick = function (ev) {
+      ev = ev || event
+      progressControl2.style.left = progressInner2.style.width = ev.clientX - btns.offsetWidth - progress.offsetWidth - timerAll.offsetWidth - toggle.offsetWidth + 'px'
+      video.muted = false
+      toggle.classList.remove('active')
+      video.volume = parseInt(progressControl2.style.left) / (volumeProgress.clientWidth - progressControl2.offsetWidth)
+
+    }
+
+    // 全屏
+    var toFull = true
+    screenToggle.onclick = function () {
+      if(toFull){
+        screen.classList.add('active')
+        lauchFullScreen(video)
+        isFull = false
+      }
+      else {
+        screen.classList.remove('active')
+        cancelFullScreen(video)
+      }
+    }
+    //实现全屏的方法
+    function lauchFullScreen(element) {
+      if (element.requestFullScreen) {
+        element.requestFullScreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullscreen();
+      }
+    }
+    //取消全屏的方法
+    function cancelFullScreen() {
+      if (document.cancelFullScreen) {
+        document.cancelFullScreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+      }
+    }
+
+  } // player
+
+
+</script>
+</body>
+</html>

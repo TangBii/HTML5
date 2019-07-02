@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>音阶导航</title>
+   <style>
+      * {
+         padding: 0;
+         margin: 0;
+      }
+
+      html, body {
+         height: 100%;
+      }
+
+      #wrap {
+         position: absolute;
+         left: 0;
+         bottom: 0;
+         top: 0;
+         right: 0;
+         margin: auto;
+         height: 30px;
+         width: 720px;
+         border: 1px solid gainsboro;
+      }
+
+      #wrap > ul {
+         list-style: none;
+         width: 720px;
+         height: 100%;
+      }
+
+      #wrap > ul > li {
+         float: left;
+         width: 80px;
+         height: 100%;
+         box-sizing: border-box;
+         text-align: center;
+         overflow: hidden;
+      }
+
+      #wrap > ul > li:not(:last-child) {
+         border-right: 1px solid gainsboro;
+      }
+
+      #wrap > ul > li > a {
+         text-decoration: none;
+         line-height: 30px;
+         color: #2aabd2;
+      }
+
+      .down {
+         position: relative;
+         width: 100%;
+         height: 100%;
+         background: #2aabd2;
+         transition: .8s;
+      }
+
+      #wrap > ul > li:hover .down {
+         transform: translateY(-30px);
+      }
+   </style>
+</head>
+<body>
+<div id="wrap">
+   <ul>
+      <li><a href="javascript:">首页</a>
+         <div class="down"></div>
+      </li>
+      <li><a href="javascript:">do</a>
+         <div class="down"></div>
+      </li>
+      <li><a href="javascript:">新闻</a>
+         <div class="down"></div>
+      </li>
+      <li><a href="javascript:">do</a>
+         <div class="down"></div>
+      </li>
+      <li><a href="javascript:">商店</a>
+         <div class="down"></div>
+      </li>
+      <li><a href="javascript:">do</a>
+         <div class="down"></div>
+      </li>
+      <li><a href="javascript:">支持</a>
+         <div class="down"></div>
+      </li>
+      <li><a href="javascript:">do</a>
+         <div class="down"></div>
+      </li>
+      <li><a href="javascript:">联系</a>
+         <div class="down"></div>
+      </li>
+   </ul>
+</div>
+<audio src="http://s8.qhimg.com/share/audio/piano1/a4.mp3"></audio>
+
+<script type="text/javascript" src="js/jquery-3.1.0.slim.js"></script>
+<script type="text/javascript">
+   var $lis = $('#wrap > ul > li:nth-child(2n+1)')
+   var audio =document.getElementsByTagName('audio')[0]
+   var index = 0
+   $lis.mouseenter(function () {
+     audio.pause()
+      var now_index = $(this).index()
+      switch (now_index) {
+        case 0 : audio.src= "http://s8.qhimg.com/share/audio/piano1/a4.mp3"
+          break
+        case 2 : audio.src= "http://s8.qhimg.com/share/audio/piano1/b4.mp3"
+          break
+        case 4 : audio.src= "http://s8.qhimg.com/share/audio/piano1/c4.mp3"
+          break
+        case 6 : audio.src= "http://s8.qhimg.com/share/audio/piano1/d4.mp3"
+          break
+        case 8  : audio.src= "http://s8.qhimg.com/share/audio/piano1/e4.mp3"
+          break
+      }
+      audio.play()
+   })
+
+</script>
+</body>
+</html>
